@@ -1,19 +1,18 @@
 #include <iostream>
-#include "openpose/utilities/errorAndLog.hpp"
-#include "openpose/utilities/fastMath.hpp"
-#include "openpose/utilities/string.hpp"
-#include "openpose/producer/videoCaptureReader.hpp"
+#include <openpose/utilities/fastMath.hpp>
+#include <openpose/utilities/string.hpp>
+#include <openpose/producer/videoCaptureReader.hpp>
 
 namespace op
 {
-    VideoCaptureReader::VideoCaptureReader(const int index) :
+    VideoCaptureReader::VideoCaptureReader(const int index, const bool throwExceptionIfNoOpened) :
         Producer{ProducerType::Webcam},
         mVideoCapture{index}
     {
         try
         {
             // assert: make sure video capture was opened
-            if (!isOpened())
+            if (throwExceptionIfNoOpened && !isOpened())
                 error("VideoCapture (webcam) could not be opened.", __LINE__, __FUNCTION__, __FILE__);
         }
         catch (const std::exception& e)
@@ -116,6 +115,18 @@ namespace op
         {
             error(e.what(), __LINE__, __FUNCTION__, __FILE__);
             return 0.;
+        }
+    }
+
+    void VideoCaptureReader::set(const int capProperty, const double value)
+    {
+        try
+        {
+            mVideoCapture.set(capProperty, value);
+        }
+        catch (const std::exception& e)
+        {
+            error(e.what(), __LINE__, __FUNCTION__, __FILE__);
         }
     }
 }

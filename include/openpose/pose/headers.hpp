@@ -1,16 +1,16 @@
-#ifndef OPENPOSE__POSE__HEADERS_HPP
-#define OPENPOSE__POSE__HEADERS_HPP
+#ifndef OPENPOSE_POSE_HEADERS_HPP
+#define OPENPOSE_POSE_HEADERS_HPP
 
 // pose module
-#include "bodyPartConnectorBase.hpp"
-#include "bodyPartConnectorCaffe.hpp"
-#include "enumClasses.hpp"
-#include "poseExtractor.hpp"
-#include "poseExtractorCaffe.hpp"
-#include "poseRenderer.hpp"
-#include "poseRenderGpu.hpp"
-#include "poseParameters.hpp"
-#include "wPoseExtractor.hpp"
-#include "wPoseRenderer.hpp"
+#include <openpose/pose/bodyPartConnectorBase.hpp>
+#include <openpose/pose/bodyPartConnectorCaffe.hpp>
+#include <openpose/pose/enumClasses.hpp>
+#include <openpose/pose/poseExtractor.hpp>
+#include <openpose/pose/poseExtractorCaffe.hpp>
+#include <openpose/pose/poseRenderer.hpp>
+#include <openpose/pose/poseParameters.hpp>
+#include <openpose/pose/renderPose.hpp>
+#include <openpose/pose/wPoseExtractor.hpp>
+#include <openpose/pose/wPoseRenderer.hpp>
 
-#endif // OPENPOSE__POSE__HEADERS_HPP
+#endif // OPENPOSE_POSE_HEADERS_HPP

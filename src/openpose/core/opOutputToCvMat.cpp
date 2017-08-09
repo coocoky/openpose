@@ -1,10 +1,9 @@
-#include "openpose/utilities/errorAndLog.hpp"
-#include "openpose/utilities/openCv.hpp"
-#include "openpose/core/opOutputToCvMat.hpp"
+#include <openpose/utilities/openCv.hpp>
+#include <openpose/core/opOutputToCvMat.hpp>
 
 namespace op
 {
-    OpOutputToCvMat::OpOutputToCvMat(const cv::Size& outputResolution) :
+    OpOutputToCvMat::OpOutputToCvMat(const Point<int>& outputResolution) :
         mOutputResolution{outputResolution}
     {
     }

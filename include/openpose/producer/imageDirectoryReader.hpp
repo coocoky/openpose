@@ -1,9 +1,8 @@
-#ifndef OPENPOSE__PRODUCER__IMAGE_DIRECTORY_READER_HPP
-#define OPENPOSE__PRODUCER__IMAGE_DIRECTORY_READER_HPP
+#ifndef OPENPOSE_PRODUCER_IMAGE_DIRECTORY_READER_HPP
+#define OPENPOSE_PRODUCER_IMAGE_DIRECTORY_READER_HPP
 
-#include <string>
-#include <vector>
-#include "producer.hpp"
+#include <openpose/core/common.hpp>
+#include <openpose/producer/producer.hpp>
 
 namespace op
 {
@@ -12,7 +11,7 @@ namespace op
      * cv::VideoCapture class, so it can be used quite similarly to the cv::VideoCapture class. Thus,
      * it is quite similar to VideoReader and WebcamReader.
      */
-    class ImageDirectoryReader : public Producer
+    class OP_API ImageDirectoryReader : public Producer
     {
     public:
         /**
@@ -51,7 +50,7 @@ namespace op
     private:
         const std::string mImageDirectoryPath;
         const std::vector<std::string> mFilePaths;
-        cv::Size mResolution;
+        Point<int> mResolution;
         long long mFrameNameCounter;
 
         cv::Mat getRawFrame();
@@ -60,4 +59,4 @@ namespace op
     };
 }
 
-#endif // OPENPOSE__PRODUCER__IMAGE_DIRECTORY_READER_HPP
+#endif // OPENPOSE_PRODUCER_IMAGE_DIRECTORY_READER_HPP

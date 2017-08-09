@@ -1,9 +1,11 @@
-#ifndef OPENPOSE__PRODUCER__WEBCAM_READER_HPP
-#define OPENPOSE__PRODUCER__WEBCAM_READER_HPP
+#ifndef OPENPOSE_PRODUCER_WEBCAM_READER_HPP
+#define OPENPOSE_PRODUCER_WEBCAM_READER_HPP
 
 #include <atomic>
+#include <mutex>
 #include <thread>
-#include "videoCaptureReader.hpp"
+#include <openpose/core/common.hpp>
+#include <openpose/producer/videoCaptureReader.hpp>
 
 namespace op
 {
@@ -11,7 +13,7 @@ namespace op
      *  WebcamReader is a wrapper of the cv::VideoCapture class for webcam. It allows controlling a video (extracting
      * frames, setting resolution & fps, seeking to a particular frame, etc).
      */
-    class WebcamReader : public VideoCaptureReader
+    class OP_API WebcamReader : public VideoCaptureReader
     {
     public:
         /**
@@ -19,9 +21,11 @@ namespace op
          * to indicate the desired resolution.
          * @param webcamIndex const int indicating the camera source (see the OpenCV documentation about
          * cv::VideoCapture for more details), in the range [0, 9].
-         * @param webcamResolution const cv::Size parameter which specifies the desired camera resolution.
+         * @param webcamResolution const Point<int> parameter which specifies the desired camera resolution.
+         * @param fps Double parameter which specifies the desired camera frame rate.
          */
-        explicit WebcamReader(const int webcamIndex = 0, const cv::Size webcamResolution = cv::Size{});
+        explicit WebcamReader(const int webcamIndex = 0, const Point<int>& webcamResolution = Point<int>{},
+                              const double fps = 30., const bool throwExceptionIfNoOpened = true);
 
         ~WebcamReader();
 
@@ -29,8 +33,12 @@ namespace op
 
         double get(const int capProperty);
 
+        void set(const int capProperty, const double value);
+
     private:
+        double mFps;
         long long mFrameNameCounter;
+        bool mThreadOpened;
         cv::Mat mBuffer;
         std::mutex mBufferMutex;
         std::atomic<bool> mCloseThread;
@@ -44,4 +52,4 @@ namespace op
     };
 }
 
-#endif // OPENPOSE__PRODUCER__WEBCAM_READER_HPP
+#endif // OPENPOSE_PRODUCER_WEBCAM_READER_HPP

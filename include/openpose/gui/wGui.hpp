@@ -1,11 +1,10 @@
-#ifndef OPENPOSE__GUI__W_GUI_HPP
-#define OPENPOSE__GUI__W_GUI_HPP
+#ifndef OPENPOSE_GUI_W_GUI_HPP
+#define OPENPOSE_GUI_W_GUI_HPP
 
-#include <memory> // std::shared_ptr
-#include <opencv2/core/core.hpp>
-#include "../thread/workerConsumer.hpp"
-#include "enumClasses.hpp"
-#include "gui.hpp"
+#include <openpose/core/common.hpp>
+#include <openpose/gui/enumClasses.hpp>
+#include <openpose/gui/gui.hpp>
+#include <openpose/thread/workerConsumer.hpp>
 
 namespace op
 {
@@ -31,10 +30,7 @@ namespace op
 
 
 // Implementation
-#include "../utilities/errorAndLog.hpp"
-#include "../utilities/macros.hpp"
-#include "../utilities/pointerContainer.hpp"
-#include "../utilities/profiler.hpp"
+#include <openpose/utilities/pointerContainer.hpp>
 namespace op
 {
     template<typename TDatums>
@@ -46,6 +42,14 @@ namespace op
     template<typename TDatums>
     void WGui<TDatums>::initializationOnThread()
     {
+        try
+        {
+            spGui->initializationOnThread();
+        }
+        catch (const std::exception& e)
+        {
+            error(e.what(), __LINE__, __FUNCTION__, __FILE__);
+        }
     }
 
     template<typename TDatums>
@@ -87,4 +91,4 @@ namespace op
     COMPILE_TEMPLATE_DATUM(WGui);
 }
 
-#endif // OPENPOSE__GUI__W_GUI_HPP
+#endif // OPENPOSE_GUI_W_GUI_HPP

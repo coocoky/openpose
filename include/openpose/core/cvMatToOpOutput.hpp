@@ -1,16 +1,15 @@
-#ifndef OPENPOSE__CORE__CV_MAT_TO_OP_OUTPUT_HPP
-#define OPENPOSE__CORE__CV_MAT_TO_OP_OUTPUT_HPP
+#ifndef OPENPOSE_CORE_CV_MAT_TO_OP_OUTPUT_HPP
+#define OPENPOSE_CORE_CV_MAT_TO_OP_OUTPUT_HPP
 
-#include <vector>
-#include <opencv2/core/core.hpp>
-#include "array.hpp"
+#include <opencv2/core/core.hpp> // cv::Mat
+#include <openpose/core/common.hpp>
 
 namespace op
 {
-    class CvMatToOpOutput
+    class OP_API CvMatToOpOutput
     {
     public:
-        CvMatToOpOutput(const cv::Size& outputResolution, const bool generateOutput = true);
+        CvMatToOpOutput(const Point<int>& outputResolution, const bool generateOutput = true);
 
         std::tuple<double, Array<float>> format(const cv::Mat& cvInputData) const;
 
@@ -20,4 +19,4 @@ namespace op
     };
 }
 
-#endif // OPENPOSE__CORE__CV_MAT_TO_OP_OUTPUT_HPP
+#endif // OPENPOSE_CORE_CV_MAT_TO_OP_OUTPUT_HPP

@@ -1,8 +1,8 @@
-#ifndef OPENPOSE__WRAPPER__WRAPPER_STRUCT_OUTPUT_HPP
-#define OPENPOSE__WRAPPER__WRAPPER_STRUCT_OUTPUT_HPP
+#ifndef OPENPOSE_WRAPPER_WRAPPER_STRUCT_OUTPUT_HPP
+#define OPENPOSE_WRAPPER_WRAPPER_STRUCT_OUTPUT_HPP
 
-#include <string>
-#include "../filestream/enumClasses.hpp"
+#include <openpose/core/common.hpp>
+#include <openpose/filestream/enumClasses.hpp>
 
 namespace op
 {
@@ -10,7 +10,7 @@ namespace op
      * WrapperStructOutput: Output (small GUI, writing rendered results and/or pose data, etc.) configuration struct.
      * WrapperStructOutput allows the user to set up the input frames generator.
      */
-    struct WrapperStructOutput
+    struct OP_API WrapperStructOutput
     {
         /**
          * Whether to display the OpenPose small integrated GUI.
@@ -31,22 +31,22 @@ namespace op
         /**
          * Pose (x, y, score) locations saving folder location.
          * If it is empty (default), it is disabled.
-         * Select format with writePoseDataFormat.
+         * Select format with writeKeypointFormat.
          */
-        std::string writePose;
+        std::string writeKeypoint;
 
         /**
          * Data format to save Pose (x, y, score) locations.
          * Options: DataFormat::Json (default), DataFormat::Xml and DataFormat::Yml (equivalent to DataFormat::Yaml)
          * JSON option only available for OpenCV >= 3.0.
          */
-        DataFormat writePoseDataFormat;
+        DataFormat writeKeypointFormat;
 
         /**
          * Pose (x, y, score) locations saving folder location in JSON format (e.g. useful when needed JSON but using OpenCV < 3.0).
          * If it is empty (default), it is disabled.
          */
-        std::string writePoseJson;
+        std::string writeKeypointJson;
 
         /**
          * Pose (x, y, score) locations saving folder location in JSON COCO validation format.
@@ -93,11 +93,11 @@ namespace op
          * It has the recommended and default values we recommend for each element of the struct.
          * Since all the elements of the struct are public, they can also be manually filled.
          */
-        WrapperStructOutput(const bool displayGui = false, const bool guiVerbose = false, const bool fullScreen = false, const std::string& writePose = "",
-                            const DataFormat writePoseDataFormat = DataFormat::Xml, const std::string& writePoseJson = "", const std::string& writeCocoJson = "",
+        WrapperStructOutput(const bool displayGui = false, const bool guiVerbose = false, const bool fullScreen = false, const std::string& writeKeypoint = "",
+                            const DataFormat writeKeypointFormat = DataFormat::Xml, const std::string& writeKeypointJson = "", const std::string& writeCocoJson = "",
                             const std::string& writeImages = "", const std::string& writeImagesFormat = "", const std::string& writeVideo = "",
                             const std::string& writeHeatMaps = "", const std::string& writeHeatMapsFormat = "");
     };
 }
 
-#endif // OPENPOSE__WRAPPER__WRAPPER_STRUCT_OUTPUT_HPP
+#endif // OPENPOSE_WRAPPER_WRAPPER_STRUCT_OUTPUT_HPP

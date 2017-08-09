@@ -1,14 +1,12 @@
-#ifndef OPENPOSE__FILESTREAM__HEAT_MAP_SAVER_HPP
-#define OPENPOSE__FILESTREAM__HEAT_MAP_SAVER_HPP
+#ifndef OPENPOSE_FILESTREAM_HEAT_MAP_SAVER_HPP
+#define OPENPOSE_FILESTREAM_HEAT_MAP_SAVER_HPP
 
-#include <string>
-#include <vector>
-#include <opencv2/core/core.hpp>
-#include "fileSaver.hpp"
+#include <openpose/core/common.hpp>
+#include <openpose/filestream/fileSaver.hpp>
 
 namespace op
 {
-    class HeatMapSaver : public FileSaver
+    class OP_API HeatMapSaver : public FileSaver
     {
     public:
         HeatMapSaver(const std::string& directoryPath, const std::string& imageFormat);
@@ -20,4 +18,4 @@ namespace op
     };
 }
 
-#endif // OPENPOSE__FILESTREAM__HEAT_MAP_SAVER_HPP
+#endif // OPENPOSE_FILESTREAM_HEAT_MAP_SAVER_HPP

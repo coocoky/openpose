@@ -1,13 +1,14 @@
 #include <chrono>
 #include <thread>
 #include <opencv2/highgui/highgui.hpp> // cv::waitKey
-#include "openpose/filestream/fileStream.hpp"
-#include "openpose/utilities/check.hpp"
-#include "openpose/utilities/errorAndLog.hpp"
-#include "openpose/gui/gui.hpp"
+#include <openpose/filestream/fileStream.hpp>
+#include <openpose/utilities/check.hpp>
+#include <openpose/gui/gui.hpp>
 
 namespace op
 {
+    const std::string OPEN_POSE_TEXT{"OpenPose 1.0.1"};
+
     inline void showGuiHelp()
     {
         try
@@ -17,7 +18,7 @@ namespace op
             if (!helpCvMat.empty())
             {
                 const auto fullScreen = false;
-                FrameDisplayer frameDisplayer{helpCvMat.size(), "OpenPose - GUI Help", fullScreen};
+                FrameDisplayer frameDisplayer{Point<int>{helpCvMat.cols, helpCvMat.rows}, OPEN_POSE_TEXT + " - GUI Help", fullScreen};
                 frameDisplayer.displayFrame(helpCvMat, 33);
             }
         }
@@ -37,7 +38,7 @@ namespace op
             if (key != -1)
             {
                 // Some OpenCV versions has a problem and key must be casted to char
-                const auto castedKey = std::tolower((char)key);
+                const auto castedKey = (char)std::tolower((char)key);
                 // ------------------------- General Commands ------------------------- //
                 // Exit program
                 if (castedKey==27)
@@ -118,7 +119,7 @@ namespace op
                     const auto newElementToRender = key2part.find(castedKey);
                     if (newElementToRender != std::string::npos)
                         for (auto& poseRenderer : mPoseRenderers)
-                            poseRenderer->setElementToRender(newElementToRender);
+                            poseRenderer->setElementToRender((int)newElementToRender);
                 }
             }
         }
@@ -149,15 +150,20 @@ namespace op
         }
     }
 
-    Gui::Gui(const bool fullScreen, const cv::Size& outputSize, const std::shared_ptr<std::atomic<bool>>& isRunningSharedPtr, 
+    Gui::Gui(const bool fullScreen, const Point<int>& outputSize, const std::shared_ptr<std::atomic<bool>>& isRunningSharedPtr, 
              const std::shared_ptr<std::pair<std::atomic<bool>, std::atomic<int>>>& videoSeekSharedPtr,
              const std::vector<std::shared_ptr<PoseExtractor>>& poseExtractors, const std::vector<std::shared_ptr<PoseRenderer>>& poseRenderers) :
-        mFrameDisplayer{outputSize, "OpenPose - GUI", fullScreen},
+        mFrameDisplayer{outputSize, OPEN_POSE_TEXT, fullScreen},
         mPoseExtractors{poseExtractors},
         mPoseRenderers{poseRenderers},
         spIsRunning{isRunningSharedPtr},
         spVideoSeek{videoSeekSharedPtr}
     {
+    }
+
+    void Gui::initializationOnThread()
+    {
+        mFrameDisplayer.initializationOnThread();
     }
 
     void Gui::update(const cv::Mat& cvOutputData)

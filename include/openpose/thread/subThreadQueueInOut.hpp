@@ -1,11 +1,10 @@
-#ifndef OPENPOSE__SUB_THREAD__THREAD_QUEUE_IN_OUT_HPP
-#define OPENPOSE__SUB_THREAD__THREAD_QUEUE_IN_OUT_HPP
+#ifndef OPENPOSE_THREAD_THREAD_QUEUE_IN_OUT_HPP
+#define OPENPOSE_THREAD_THREAD_QUEUE_IN_OUT_HPP
 
-#include <memory> // std::shared_ptr
-#include <vector>
-#include "thread.hpp"
-#include "queue.hpp"
-#include "worker.hpp"
+#include <openpose/core/common.hpp>
+#include <openpose/thread/queue.hpp>
+#include <openpose/thread/thread.hpp>
+#include <openpose/thread/worker.hpp>
 
 namespace op
 {
@@ -30,8 +29,6 @@ namespace op
 
 
 // Implementation
-#include "../utilities/errorAndLog.hpp"
-#include "../utilities/macros.hpp"
 namespace op
 {
     template<typename TDatums, typename TWorker, typename TQueue>
@@ -94,4 +91,4 @@ namespace op
     COMPILE_TEMPLATE_DATUM(SubThreadQueueInOut);
 }
 
-#endif // OPENPOSE__SUB_THREAD__THREAD_QUEUE_IN_OUT_HPP
+#endif // OPENPOSE_THREAD_THREAD_QUEUE_IN_OUT_HPP

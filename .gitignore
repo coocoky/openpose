@@ -20,7 +20,6 @@
 *_pb2.py
 
 # Compiled python
-*__init__.py
 *.pyc
 
 # Compiled MATLAB
@@ -58,6 +57,24 @@ MANIFEST-*
 
 # OSX dir files
 .DS_Store
+
+######################### Windows (Visual Studio) Files #########################
+*.db
+*.deps
+*.obj
+*.opendb
+*.pdb
+
+######################### Windows (Visual Studio) Folders #########################
+*.vs/
+*x64/
+3rdparty/windows/caffe/
+3rdparty/windows/caffe3rdparty/
+3rdparty/windows/opencv/
+3rdparty/windows/freeglut/
+3rdparty/windows/spinnaker/
+# Allowing this file (removed *.user for Qt)
+!*.vcxproj.user
 
 ######################### Caffe Files / Folders #########################
 # User's build configuration
@@ -102,6 +119,4 @@ html/
 *.mov
 
 ######################### Validation Scripts & Testing #########################
-*validation.sh
-validation*.sh
 output*/

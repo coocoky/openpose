@@ -1,7 +1,6 @@
-#include "openpose/utilities/errorAndLog.hpp"
-#include "openpose/utilities/openCv.hpp"
-#include "openpose/filestream/fileStream.hpp"
-#include "openpose/filestream/heatMapSaver.hpp"
+#include <openpose/utilities/openCv.hpp>
+#include <openpose/filestream/fileStream.hpp>
+#include <openpose/filestream/heatMapSaver.hpp>
 
 namespace op
 {

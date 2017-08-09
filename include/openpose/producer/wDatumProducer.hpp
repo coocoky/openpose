@@ -1,10 +1,10 @@
-#ifndef OPENPOSE__PRODUCER__W_DATUM_PRODUCER_HPP
-#define OPENPOSE__PRODUCER__W_DATUM_PRODUCER_HPP
+#ifndef OPENPOSE_PRODUCER_W_DATUM_PRODUCER_HPP
+#define OPENPOSE_PRODUCER_W_DATUM_PRODUCER_HPP
 
 #include <limits> // std::numeric_limits
-#include <memory> // std::shared_ptr
-#include "../thread/workerProducer.hpp"
-#include "datumProducer.hpp"
+#include <openpose/core/common.hpp>
+#include <openpose/producer/datumProducer.hpp>
+#include <openpose/thread/workerProducer.hpp>
 
 namespace op
 {
@@ -30,11 +30,7 @@ namespace op
 
 
 // Implementation
-#include <vector>
-#include "../utilities/errorAndLog.hpp"
-#include "../utilities/macros.hpp"
-#include "../utilities/profiler.hpp"
-#include "../core/datum.hpp"
+#include <openpose/core/datum.hpp>
 namespace op
 {
     template<typename TDatums, typename TDatumsNoPtr>
@@ -81,4 +77,4 @@ namespace op
     extern template class WDatumProducer<DATUM_BASE, DATUM_BASE_NO_PTR>;
 }
 
-#endif // OPENPOSE__PRODUCER__W_DATUM_PRODUCER_HPP
+#endif // OPENPOSE_PRODUCER_W_DATUM_PRODUCER_HPP

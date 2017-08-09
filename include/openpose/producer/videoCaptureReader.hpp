@@ -1,10 +1,10 @@
-#ifndef OPENPOSE__PRODUCER__VIDEO_CAPTURE_READER_HPP
-#define OPENPOSE__PRODUCER__VIDEO_CAPTURE_READER_HPP
+#ifndef OPENPOSE_PRODUCER_VIDEO_CAPTURE_READER_HPP
+#define OPENPOSE_PRODUCER_VIDEO_CAPTURE_READER_HPP
 
-#include <string>
-#include <opencv2/core/core.hpp>            // cv::Mat
-#include <opencv2/highgui/highgui.hpp>      // cv::VideoCapture
-#include "producer.hpp"
+#include <opencv2/core/core.hpp> // cv::Mat
+#include <opencv2/highgui/highgui.hpp> // cv::VideoCapture
+#include <openpose/core/common.hpp>
+#include <openpose/producer/producer.hpp>
 
 namespace op
 {
@@ -12,14 +12,14 @@ namespace op
      *  VideoCaptureReader is an abstract class to extract frames from a cv::VideoCapture source (video file,
      * webcam stream, etc.). It has the basic and common functions of the cv::VideoCapture class (e.g. get, set, etc.).
      */
-    class VideoCaptureReader : public Producer
+    class OP_API VideoCaptureReader : public Producer
     {
     public:
         /**
          * This constructor of VideoCaptureReader wraps cv::VideoCapture(const int).
          * @param index const int indicating the cv::VideoCapture constructor int argument, in the range [0, 9].
          */
-        explicit VideoCaptureReader(const int index);
+        explicit VideoCaptureReader(const int index, const bool throwExceptionIfNoOpened);
 
         /**
          * This constructor of VideoCaptureReader wraps cv::VideoCapture(const std::string).
@@ -44,10 +44,7 @@ namespace op
 
         virtual double get(const int capProperty) = 0;
 
-        inline void set(const int capProperty, const double value)
-        {
-            mVideoCapture.set(capProperty, value);
-        }
+        virtual void set(const int capProperty, const double value) = 0;
 
         inline double get(const ProducerProperty property)
         {
@@ -69,4 +66,4 @@ namespace op
     };
 }
 
-#endif // OPENPOSE__PRODUCER__VIDEO_CAPTURE_READER_HPP
+#endif // OPENPOSE_PRODUCER_VIDEO_CAPTURE_READER_HPP

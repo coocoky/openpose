@@ -1,5 +1,5 @@
-#include "openpose/utilities/errorAndLog.hpp"
-#include "openpose/utilities/string.hpp"
+#include <algorithm> // std::transform
+#include <openpose/utilities/string.hpp>
 
 namespace op
 {
@@ -33,6 +33,59 @@ namespace op
             return "";
         }
     }
+
+    std::vector<std::string> splitString(const std::string& stringToSplit, const std::string& delimiter)
+    {
+        try
+        {
+            std::vector<std::string> result;
+            size_t pos = 0;
+            auto stringToSplitAux = stringToSplit;
+            while ((pos = stringToSplitAux.find(delimiter)) != std::string::npos)
+            {
+                result.emplace_back(stringToSplitAux.substr(0, pos));
+                stringToSplitAux.erase(0, pos + delimiter.length());
+            }
+            result.emplace_back(stringToSplitAux);
+            return result;
+        }
+        catch (const std::exception& e)
+        {
+            error(e.what(), __LINE__, __FUNCTION__, __FILE__);
+            return {};
+        }
+    }
+
+    std::string toLower(const std::string& string)
+    {
+        try
+        {
+            auto result = string;
+            std::transform(string.begin(), string.end(), result.begin(), tolower);
+            return result;
+        }
+        catch (const std::exception& e)
+        {
+            error(e.what(), __LINE__, __FUNCTION__, __FILE__);
+            return "";
+        }
+    }
+
+    std::string toUpper(const std::string& string)
+    {
+        try
+        {
+            auto result = string;
+            std::transform(string.begin(), string.end(), result.begin(), toupper);
+            return result;
+        }
+        catch (const std::exception& e)
+        {
+            error(e.what(), __LINE__, __FUNCTION__, __FILE__);
+            return "";
+        }
+    }
+
 
     // Signed
     template std::string toFixedLengthString<char>(const char number, const unsigned long long stringLength);

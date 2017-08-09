@@ -1,24 +1,24 @@
-#ifndef OPENPOSE__CORE__W_KEY_POINT_SCALER_HPP
-#define OPENPOSE__CORE__W_KEY_POINT_SCALER_HPP
+#ifndef OPENPOSE_CORE_W_KEYPOINT_SCALER_HPP
+#define OPENPOSE_CORE_W_KEYPOINT_SCALER_HPP
 
-#include "../thread/worker.hpp"
-#include "keyPointScaler.hpp"
-#include "scaleKeyPoints.hpp"
+#include <openpose/core/common.hpp>
+#include <openpose/core/keypointScaler.hpp>
+#include <openpose/thread/worker.hpp>
 
 namespace op
 {
     template<typename TDatums>
-    class WKeyPointScaler : public Worker<TDatums>
+    class WKeypointScaler : public Worker<TDatums>
     {
     public:
-        explicit WKeyPointScaler(const std::shared_ptr<KeyPointScaler>& keyPointScaler);
+        explicit WKeypointScaler(const std::shared_ptr<KeypointScaler>& keypointScaler);
 
         void initializationOnThread();
 
         void work(TDatums& tDatums);
 
     private:
-        std::shared_ptr<KeyPointScaler> spKeyPointScaler;
+        std::shared_ptr<KeypointScaler> spKeypointScaler;
     };
 }
 
@@ -27,25 +27,22 @@ namespace op
 
 
 // Implementation
-#include "../utilities/errorAndLog.hpp"
-#include "../utilities/macros.hpp"
-#include "../utilities/pointerContainer.hpp"
-#include "../utilities/profiler.hpp"
+#include <openpose/utilities/pointerContainer.hpp>
 namespace op
 {
     template<typename TDatums>
-    WKeyPointScaler<TDatums>::WKeyPointScaler(const std::shared_ptr<KeyPointScaler>& keyPointScaler) :
-        spKeyPointScaler{keyPointScaler}
+    WKeypointScaler<TDatums>::WKeypointScaler(const std::shared_ptr<KeypointScaler>& keypointScaler) :
+        spKeypointScaler{keypointScaler}
     {
     }
 
     template<typename TDatums>
-    void WKeyPointScaler<TDatums>::initializationOnThread()
+    void WKeypointScaler<TDatums>::initializationOnThread()
     {
     }
 
     template<typename TDatums>
-    void WKeyPointScaler<TDatums>::work(TDatums& tDatums)
+    void WKeypointScaler<TDatums>::work(TDatums& tDatums)
     {
         try
         {
@@ -58,8 +55,8 @@ namespace op
                 // Rescale pose data
                 for (auto& tDatum : *tDatums)
                 {
-                    std::vector<Array<float>> arraysToScale{tDatum.poseKeyPoints, tDatum.handKeyPoints, tDatum.faceKeyPoints};
-                    spKeyPointScaler->scale(arraysToScale, tDatum.scaleInputToOutput, tDatum.scaleNetToOutput, tDatum.cvInputData.size());
+                    std::vector<Array<float>> arraysToScale{tDatum.poseKeypoints, tDatum.handKeypoints[0], tDatum.handKeypoints[1], tDatum.faceKeypoints};
+                    spKeypointScaler->scale(arraysToScale, (float)tDatum.scaleInputToOutput, (float)tDatum.scaleNetToOutput, Point<int>{tDatum.cvInputData.cols, tDatum.cvInputData.rows});
                 }
                 // Profiling speed
                 Profiler::timerEnd(profilerKey);
@@ -76,7 +73,7 @@ namespace op
         }
     }
 
-    COMPILE_TEMPLATE_DATUM(WKeyPointScaler);
+    COMPILE_TEMPLATE_DATUM(WKeypointScaler);
 }
 
-#endif // OPENPOSE__CORE__W_KEY_POINT_SCALER_HPP
+#endif // OPENPOSE_CORE_W_KEYPOINT_SCALER_HPP

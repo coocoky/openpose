@@ -1,14 +1,13 @@
-#ifndef OPENPOSE__FILESTREAM__IMAGE_SAVER_HPP
-#define OPENPOSE__FILESTREAM__IMAGE_SAVER_HPP
+#ifndef OPENPOSE_FILESTREAM_IMAGE_SAVER_HPP
+#define OPENPOSE_FILESTREAM_IMAGE_SAVER_HPP
 
-#include <string>
-#include <vector>
-#include <opencv2/core/core.hpp>
-#include "fileSaver.hpp"
+#include <opencv2/core/core.hpp> // cv::Mat
+#include <openpose/core/common.hpp>
+#include <openpose/filestream/fileSaver.hpp>
 
 namespace op
 {
-    class ImageSaver : public FileSaver
+    class OP_API ImageSaver : public FileSaver
     {
     public:
         ImageSaver(const std::string& directoryPath, const std::string& imageFormat);
@@ -20,4 +19,4 @@ namespace op
     };
 }
 
-#endif // OPENPOSE__FILESTREAM__IMAGE_SAVER_HPP
+#endif // OPENPOSE_FILESTREAM_IMAGE_SAVER_HPP

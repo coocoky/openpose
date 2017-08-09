@@ -1,19 +1,17 @@
 #ifdef USE_CAFFE
-#ifndef OPENPOSE__POSE__BODY_PART_CONNECTOR_CAFFE_HPP
-#define OPENPOSE__POSE__BODY_PART_CONNECTOR_CAFFE_HPP
+#ifndef OPENPOSE_POSE_BODY_PART_CONNECTOR_CAFFE_HPP
+#define OPENPOSE_POSE_BODY_PART_CONNECTOR_CAFFE_HPP
 
-#include <array>
 #include <caffe/blob.hpp>
-#include "../core/array.hpp"
-#include "../utilities/macros.hpp"
-#include "enumClasses.hpp"
+#include <openpose/core/common.hpp>
+#include <openpose/pose/enumClasses.hpp>
 
 namespace op
 {
     // It mostly follows the Caffe::layer implementation, so Caffe users can easily use it. However, in order to keep the compatibility with any generic Caffe version,
     // we keep this 'layer' inside our library rather than in the Caffe code.
     template <typename T>
-    class BodyPartConnectorCaffe
+    class OP_API BodyPartConnectorCaffe
     {
     public:
         explicit BodyPartConnectorCaffe();
@@ -36,9 +34,9 @@ namespace op
 
         void setScaleNetToOutput(const T scaleNetToOutput);
 
-        virtual void Forward_cpu(const std::vector<caffe::Blob<T>*>& bottom, Array<T>& poseKeyPoints);
+        virtual void Forward_cpu(const std::vector<caffe::Blob<T>*>& bottom, Array<T>& poseKeypoints);
 
-        virtual void Forward_gpu(const std::vector<caffe::Blob<T>*>& bottom, const std::vector<caffe::Blob<T>*>& top, Array<T>& poseKeyPoints);
+        virtual void Forward_gpu(const std::vector<caffe::Blob<T>*>& bottom, const std::vector<caffe::Blob<T>*>& top, Array<T>& poseKeypoints);
 
         virtual void Backward_cpu(const std::vector<caffe::Blob<T>*>& top, const std::vector<bool>& propagate_down, const std::vector<caffe::Blob<T>*>& bottom);
 
@@ -59,5 +57,5 @@ namespace op
     };
 }
 
-#endif // OPENPOSE__POSE__BODY_PART_CONNECTOR_CAFFE_HPP
+#endif // OPENPOSE_POSE_BODY_PART_CONNECTOR_CAFFE_HPP
 #endif

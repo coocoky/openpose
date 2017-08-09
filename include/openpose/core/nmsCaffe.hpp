@@ -1,23 +1,23 @@
 #ifdef USE_CAFFE
-#ifndef OPENPOSE__CORE__NMS_CAFFE_HPP
-#define OPENPOSE__CORE__NMS_CAFFE_HPP
+#ifndef OPENPOSE_CORE_NMS_CAFFE_HPP
+#define OPENPOSE_CORE_NMS_CAFFE_HPP
 
-#include <array>
-#include "caffe/blob.hpp"
+#include <caffe/blob.hpp>
+#include <openpose/core/common.hpp>
 
 namespace op
 {
     // It mostly follows the Caffe::layer implementation, so Caffe users can easily use it. However, in order to keep the compatibility with any generic Caffe version,
     // we keep this 'layer' inside our library rather than in the Caffe code.
     template <typename T>
-    class NmsCaffe
+    class OP_API NmsCaffe
     {
     public:
         explicit NmsCaffe();
 
         virtual void LayerSetUp(const std::vector<caffe::Blob<T>*>& bottom, const std::vector<caffe::Blob<T>*>& top);
 
-        virtual void Reshape(const std::vector<caffe::Blob<T>*>& bottom, const std::vector<caffe::Blob<T>*>& top, const int maxPeaks, const int numberParts);
+        virtual void Reshape(const std::vector<caffe::Blob<T>*>& bottom, const std::vector<caffe::Blob<T>*>& top, const int maxPeaks);
 
         virtual inline const char* type() const { return "Nms"; }
 
@@ -39,5 +39,5 @@ namespace op
     };
 }
 
-#endif // OPENPOSE__CORE__NMS_CAFFE_HPP
+#endif // OPENPOSE_CORE_NMS_CAFFE_HPP
 #endif

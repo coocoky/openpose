@@ -1,21 +1,25 @@
 #include <opencv2/highgui/highgui.hpp> // cv::imshow, cv::waitKey, cv::namedWindow, cv::setWindowProperty
-#include "openpose/utilities/errorAndLog.hpp"
-#include "openpose/gui/frameDisplayer.hpp"
+#include <openpose/gui/frameDisplayer.hpp>
 
 namespace op
 {
-    FrameDisplayer::FrameDisplayer(const cv::Size& windowedSize, const std::string& windowedName, const bool fullScreen) :
+    FrameDisplayer::FrameDisplayer(const Point<int>& windowedSize, const std::string& windowedName, const bool fullScreen) :
         mWindowedSize{windowedSize},
         mWindowName{windowedName},
         mGuiDisplayMode{(fullScreen ? GuiDisplayMode::FullScreen : GuiDisplayMode::Windowed)}
+    {
+    }
+
+    void FrameDisplayer::initializationOnThread()
     {
         try
         {
             setGuiDisplayMode(mGuiDisplayMode);
 
-            const cv::Mat blackFrame{mWindowedSize.height, mWindowedSize.width, CV_32FC3, {0,0,0}};
+            const cv::Mat blackFrame{mWindowedSize.y, mWindowedSize.x, CV_32FC3, {0,0,0}};
             FrameDisplayer::displayFrame(blackFrame);
-            cv::waitKey(100);
+            cv::waitKey(1); // This one will show most probably a white image (I guess the program does not have time to render in 1 msec)
+            // cv::waitKey(1000); // This one will show the desired black image
         }
         catch (const std::exception& e)
         {
@@ -35,7 +39,7 @@ namespace op
                 cv::setWindowProperty(mWindowName, CV_WND_PROP_FULLSCREEN, CV_WINDOW_FULLSCREEN);
             else if (mGuiDisplayMode == GuiDisplayMode::Windowed)
             {
-                cv::resizeWindow(mWindowName, mWindowedSize.width, mWindowedSize.height);
+                cv::resizeWindow(mWindowName, mWindowedSize.x, mWindowedSize.y);
                 cv::setWindowProperty(mWindowName, CV_WND_PROP_FULLSCREEN, CV_WINDOW_NORMAL);
             }
             else

@@ -1,7 +1,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/range/iterator_range_core.hpp>
-#include "openpose/utilities/errorAndLog.hpp"
-#include "openpose/utilities/fileSystem.hpp"
+#include <openpose/utilities/fileSystem.hpp>
+#include <openpose/utilities/string.hpp>
 
 namespace op
 {
@@ -57,7 +57,7 @@ namespace op
             if (!directoryPath.empty())
             {
                 std::replace(directoryPath.begin(), directoryPath.end(), '\\', '/'); // replace all '\\' to '/';
-                if (*directoryPath.cend() != '/')
+                if (directoryPath.back() != '/')
                     directoryPath = directoryPath + "/";
             }
             return directoryPath;
@@ -135,9 +135,9 @@ namespace op
     {
         try
         {
-            const auto cleanedExtension = removeExtensionDot(extension);
+            const auto cleanedExtension = toLower(removeExtensionDot(extension));
             for (auto& extensionI : extensions)
-                if (cleanedExtension == removeExtensionDot(extensionI))
+                if (cleanedExtension == toLower(removeExtensionDot(extensionI)))
                     return true;
             return false;
         }

@@ -1,9 +1,10 @@
-#ifndef OPENPOSE__THREAD__W_QUEUE_ORDERER_HPP
-#define OPENPOSE__THREAD__W_QUEUE_ORDERER_HPP
+#ifndef OPENPOSE_THREAD_W_QUEUE_ORDERER_HPP
+#define OPENPOSE_THREAD_W_QUEUE_ORDERER_HPP
 
 #include <queue> // std::priority_queue
-#include "worker.hpp"
-#include "../utilities/pointerContainer.hpp"
+#include <openpose/core/common.hpp>
+#include <openpose/thread/worker.hpp>
+#include <openpose/utilities/pointerContainer.hpp>
 
 namespace op
 {
@@ -36,9 +37,6 @@ namespace op
 // Implementation
 #include <chrono>
 #include <thread>
-#include "../utilities/errorAndLog.hpp"
-#include "../utilities/macros.hpp"
-#include "../utilities/profiler.hpp"
 namespace op
 {
     template<typename TDatums>
@@ -141,4 +139,4 @@ namespace op
     COMPILE_TEMPLATE_DATUM(WQueueOrderer);
 }
 
-#endif // OPENPOSE__THREAD__W_QUEUE_ORDERER_HPP
+#endif // OPENPOSE_THREAD_W_QUEUE_ORDERER_HPP
